@@ -32,6 +32,9 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
+	@Column(name = "token")
+	private String token;
+	
 	@Column(name = "delete_flg")
 	private boolean deleteFlg;
 	
