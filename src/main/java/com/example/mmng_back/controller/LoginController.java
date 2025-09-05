@@ -42,7 +42,6 @@ public class LoginController {
 				response.put("token", token);
 				response.put("userName", user.getUserName());
 				response.put("userId", user.getUserId());
-				response.put("createdAt", user.getCreatedAt());
 				
 			} else {
 				response.put("status", HttpStatus.BAD_REQUEST.value());
