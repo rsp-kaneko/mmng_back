@@ -24,7 +24,7 @@ public class WebSecurityConfig {
 		http
 			.csrf(csrf -> csrf
 					.csrfTokenRepository(this.csrfTokenRepository())
-					.ignoringRequestMatchers("/csrf", "/api/login")
+					.ignoringRequestMatchers("/csrf", "/api/login", "/api/loginTokenCheck")
 			)
 			.headers(headers -> headers
 					.frameOptions(frameOptions -> frameOptions.sameOrigin())
