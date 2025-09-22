@@ -1,8 +1,8 @@
 package com.example.mmng_back.controller;
 
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +34,7 @@ public class LoginController {
 			String errorMsg = this.userService.login(request);
 			if (errorMsg == null) {
 				User user = this.userRepository.findByUserName(request.getUserName());
-				String token = Base64.getEncoder().encodeToString(user.getUserName().getBytes());
+				String token = UUID.randomUUID().toString();
 				user.setToken(token);
 				this.userRepository.save(user);
 				
