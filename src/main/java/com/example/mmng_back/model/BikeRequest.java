@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class BikeRequest {
 	
+	private String updateType;
 	private Integer bikeId;
 	private Integer userId;
     private String bikeName;

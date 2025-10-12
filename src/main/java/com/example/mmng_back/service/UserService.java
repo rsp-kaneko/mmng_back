@@ -22,7 +22,6 @@ public class UserService {
 	@Transactional
 	public String login(UserRequest request) {
 		String response = null;
-		
 		try {
 			User user = this.userRepository.findByUserName(request.getUserName());
 			if (user != null) {
@@ -34,10 +33,38 @@ public class UserService {
 			}
 			
 		} catch (Exception e) {
-			log.info("LoginService > login:"+e.getMessage());
+			log.info("■■■ login ERROR ■■■");
+			log.info("■■■ ERROR MESSAGES:"+e);
 		}
-		
 		return response;
+	}
+	
+	@Transactional
+	public void updateUser(UserRequest request) {
+		try {
+			User user = this.userRepository.getReferenceById(request.getUserId());
+			switch(request.getUpdateType()) {
+				case "userName":
+					user.setUserName(request.getUserName());
+					break;
+				case "password":
+					user.setPassword(request.getPassword());
+					break;
+				default:
+					log.info("■■■ updateType ERROR ■■■");
+			}
+			this.userRepository.save(user);				
+			
+		} catch (Exception e) {
+			log.info("■■■ updateUser ERROR ■■■");
+			log.info("■■■ ERROR MESSAGES:"+e);
+		}
+	}
+	
+	public boolean existUserCheck(Integer userId, String userName) {
+		User myUser = this.userRepository.getReferenceById(userId);
+		User existUser = this.userRepository.findByUserName(userName);
+		return existUser != null && (myUser.getUserId() != existUser.getUserId());
 	}
 	
 }
