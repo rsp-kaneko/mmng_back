@@ -28,17 +28,19 @@ public class UserController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			boolean existUser = this.userService.existUserCheck(request.getUserId(), request.getUserName());
-			if (request.getUpdateType().equals("userName") && existUser) {
+			if (request.getUpdateType().equals("ユーザー名") && existUser) {
 				response.put("status", HttpStatus.BAD_REQUEST.value());
 				response.put("message", "そのユーザー名は既に使われています");
 			} else {
 				this.userService.updateUser(request);
-				response.put("status", HttpStatus.OK.value());				
+				response.put("status", HttpStatus.OK.value());
+				response.put("updateType", request.getUpdateType());
+				log.info("*** [SUCCESS] Update User ***");
 			}
 			
 		} catch (Exception e) {
-			log.info("■■■ updateUser ERROR ■■■");
-			log.info("■■■ ERROR MESSAGES:"+e);
+			log.error("■■■ ERROR /api/updateUser ■■■");
+			log.error("■■■ ERROR MESSAGES: "+e);
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.put("messages", e);
 		}

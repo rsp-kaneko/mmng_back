@@ -42,18 +42,18 @@ public class UserService {
 	@Transactional
 	public void updateUser(UserRequest request) {
 		try {
-			User user = this.userRepository.getReferenceById(request.getUserId());
+			User user = this.userRepository.findById(request.getUserId()).get();
 			switch(request.getUpdateType()) {
-				case "userName":
-					user.setUserName(request.getUserName());
-					break;
-				case "password":
-					user.setPassword(request.getPassword());
-					break;
-				default:
-					log.info("■■■ updateType ERROR ■■■");
+			case "ユーザー名":
+				user.setUserName(request.getUserName());
+				break;
+			case "パスワード":
+				user.setPassword(request.getPassword());
+				break;
+			default:
+				log.info("■■■ updateType ERROR ■■■");
 			}
-			this.userRepository.save(user);				
+			this.userRepository.save(user);
 			
 		} catch (Exception e) {
 			log.info("■■■ updateUser ERROR ■■■");
