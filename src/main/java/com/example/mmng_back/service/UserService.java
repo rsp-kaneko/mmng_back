@@ -48,7 +48,8 @@ public class UserService {
 				user.setUserName(request.getUserName());
 				break;
 			case "パスワード":
-				user.setPassword(request.getPassword());
+				String encodePassword = this.passwordEncoder.encode(request.getPassword());
+				user.setPassword(encodePassword);
 				break;
 			default:
 				log.info("■■■ updateType ERROR ■■■");
