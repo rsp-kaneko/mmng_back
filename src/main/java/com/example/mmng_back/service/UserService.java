@@ -44,10 +44,10 @@ public class UserService {
 		try {
 			User user = this.userRepository.findById(request.getUserId()).get();
 			switch(request.getUpdateType()) {
-			case "ユーザー名":
+			case "userName":
 				user.setUserName(request.getUserName());
 				break;
-			case "パスワード":
+			case "password":
 				String encodePassword = this.passwordEncoder.encode(request.getPassword());
 				user.setPassword(encodePassword);
 				break;

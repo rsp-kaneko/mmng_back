@@ -45,16 +45,19 @@ public class BikeService {
 		try {
 			Bike bike = this.bikeRepository.findById(request.getBikeId()).get();
 			switch(request.getUpdateType()) {
-				case "メーカー名":
+				case "makerName":
 					bike.setMakerName(request.getMakerName());
 					break;
-				case "サイズ":
+				case "bikeName":
+					bike.setBikeName(request.getBikeName());
+					break;
+				case "size":
 					bike.setSize(request.getSize());
 					break;
-				case "ホイールベース":
+				case "wheelBase":
 					bike.setWheelBase(request.getWheelBase());
 					break;
-				case "BB":
+				case "bbShell":
 					bike.setBbShell(request.getBbShell());
 					break;
 			}

@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +32,7 @@ public class BikeController {
 	private final BikeRepository bikeRepository;
 	private final BikeService bikeService;
 
-	@PostMapping("/getMyBikes")
+	@PostMapping("/getMyAllBikes")
 	public Object getMyBikes(@RequestBody(required = false) BikeRequest request) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -41,7 +43,7 @@ public class BikeController {
 			log.info("*** [SUCCESS] Get My Bike Lists ***");
 			
 		} catch (Exception e) {
-			log.error("■■■ [ERROR] /getMyBikes ■■■");
+			log.error("■■■ [ERROR] /getMyAllBikes ■■■");
 			log.error("■■■ ERROR MESSAGES: "+e);
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.put("message", e.getMessage());
@@ -66,17 +68,35 @@ public class BikeController {
 		return response;
 	}
 	
-	@PostMapping("/updateBike")
+	@PutMapping("/updateBike")
 	public Object updateBike(@RequestBody(required = false) BikeRequest request) {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			this.bikeService.updateBike(request);
 			response.put("status", HttpStatus.OK.value());
-			response.put("updateType", request.getUpdateType());
 			log.info("*** [SUCCESS] Update Bike ***");
 			
 		} catch (Exception e) {
 			log.error("■■■ [ERROR] /updateBike ■■■");
+			log.error("■■■ ERROR MESSAGES: "+e);
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			response.put("message", e.getMessage());
+		}
+		return response;
+	}
+	
+	@DeleteMapping("/api/deleteBike")
+	public Object deleteBike(@RequestBody(required = false) BikeRequest request) {
+		Map<String, Object> response = new HashMap<>();
+		try {
+			Bike bike = this.bikeRepository.findById(request.getBikeId()).get();
+			bike.setDeleteFlg(true);
+			this.bikeRepository.save(bike);
+			response.put("status", HttpStatus.OK.value());
+			log.info("*** [SUCCESS] Delete Bike ***");
+			
+		} catch (Exception e) {
+			log.error("■■■ [ERROR] /deleteBike ■■■");
 			log.error("■■■ ERROR MESSAGES: "+e);
 			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.put("message", e.getMessage());
