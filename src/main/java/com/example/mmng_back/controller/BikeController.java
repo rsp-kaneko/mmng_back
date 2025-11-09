@@ -36,11 +36,11 @@ public class BikeController {
 	public Object getMyBikes(@RequestBody(required = false) BikeRequest request) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			User user = this.userRepository.getReferenceById(request.getUserId());
+			User user = this.userRepository.findById(request.getUserId()).get();
 			List<Bike> bikeList = this.bikeRepository.findByUserAndDeleteFlgOrderByCreatedAtDesc(user, false);
 			response.put("status", HttpStatus.OK.value());
 			response.put("bikeList", bikeList);
-			log.info("*** [SUCCESS] Get My Bike Lists ***");
+			log.info("□□□ [SUCCESS] Get My Bike Lists □□□");
 			
 		} catch (Exception e) {
 			log.error("■■■ [ERROR] /getMyAllBikes ■■■");
@@ -57,7 +57,7 @@ public class BikeController {
 		try {
 			this.bikeService.createBike(request);
 			response.put("status", HttpStatus.OK.value());
-			log.info("*** [SUCCESS] Create Bike ***");
+			log.info("□□□ [SUCCESS] Create Bike □□□");
 			
 		} catch (Exception e) {
 			log.error("■■■ [ERROR] /createBike ■■■");
@@ -74,7 +74,7 @@ public class BikeController {
 		try {
 			this.bikeService.updateBike(request);
 			response.put("status", HttpStatus.OK.value());
-			log.info("*** [SUCCESS] Update Bike ***");
+			log.info("□□□ [SUCCESS] Update Bike □□□");
 			
 		} catch (Exception e) {
 			log.error("■■■ [ERROR] /updateBike ■■■");
@@ -93,7 +93,7 @@ public class BikeController {
 			bike.setDeleteFlg(true);
 			this.bikeRepository.save(bike);
 			response.put("status", HttpStatus.OK.value());
-			log.info("*** [SUCCESS] Delete Bike ***");
+			log.info("□□□ [SUCCESS] Delete Bike □□□");
 			
 		} catch (Exception e) {
 			log.error("■■■ [ERROR] /deleteBike ■■■");
