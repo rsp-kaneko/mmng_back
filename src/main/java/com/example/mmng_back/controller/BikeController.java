@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -85,11 +86,11 @@ public class BikeController {
 		return response;
 	}
 	
-	@DeleteMapping("/api/deleteBike")
-	public Object deleteBike(@RequestBody(required = false) BikeRequest request) {
+	@DeleteMapping("/deleteBike/{bikeId}")
+	public Object deleteBike(@PathVariable(name = "bikeId") Integer bikeId) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			Bike bike = this.bikeRepository.findById(request.getBikeId()).get();
+			Bike bike = this.bikeRepository.findById(bikeId).get();
 			bike.setDeleteFlg(true);
 			this.bikeRepository.save(bike);
 			response.put("status", HttpStatus.OK.value());
