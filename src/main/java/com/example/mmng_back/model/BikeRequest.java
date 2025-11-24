@@ -10,7 +10,7 @@ public class BikeRequest {
 	private Integer userId;
     private String bikeName;
     private String makerName;
-    private Integer size;
+    private Double size;
     private Integer wheelBase;
     private Integer bbShell;
 

@@ -33,7 +33,7 @@ public class Bike {
 	private String makerName;
 	
 	@Column(name = "size")
-	private Integer size;
+	private Double size;
 	
 	@Column(name = "wheel_base")
 	private Integer wheelBase;
