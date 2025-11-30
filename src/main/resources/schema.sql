@@ -32,3 +32,26 @@ CREATE TABLE IF NOT EXISTS bikes (
 	updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,	
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+-- parts_categories
+CREATE TABLE IF NOT EXISTS parts_categories (
+	parts_category_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	category_name VARCHAR(100) NOT NULL,
+	icon_url VARCHAR(255)
+);
+
+-- parts
+CREATE TABLE IF NOT EXISTS parts (
+	parts_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	bike_id INT NOT NULL,
+	parts_category_id INT,
+	category_name VARCHAR(100),
+	parts_name VARCHAR(100) NOT NULL,
+	image_url VARCHAR(255),
+	change_date DATETIME NOT NULL,
+	price INT,
+	delete_flg BOOLEAN NOT NULL DEFAULT false,
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN KEY (bike_id) REFERENCES bikes(bike_id)
+);
