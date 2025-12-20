@@ -24,13 +24,11 @@ public class Parts {
 	
 	@ManyToOne
 	@JoinColumn(name = "bike_id")
-	private Bike bikeId;
+	private Bike bike;
 	
-	@Column(name = "parts_category_id")
-	private Integer partsCategoryId;
-	
-	@Column(name = "category_name")
-	private String categoryName;
+	@ManyToOne
+	@JoinColumn(name = "parts_category_id")
+	private PartsCategory partsCategory;
 	
 	@Column(name = "parts_name")
 	private String partsName;
