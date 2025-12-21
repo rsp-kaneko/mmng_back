@@ -1,6 +1,7 @@
 package com.example.mmng_back.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +38,7 @@ public class Parts {
 	private String imageUrl;
 	
 	@Column(name = "change_date")
-	private Timestamp changeDate;
+	private Date changeDate;
 	
 	@Column(name = "price")
 	private Integer price;
